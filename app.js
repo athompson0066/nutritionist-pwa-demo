@@ -343,7 +343,7 @@ Snacks: Prepped snacks for the week
     allArrows.forEach(a => a.classList.remove('rotated'));
 
     // Open target
-    content.classList.add('open');
+    content.parentElement.classList.add('open');
     content.previousElementSibling.querySelector('.accordion-arrow').classList.add('rotated');
   },
 
