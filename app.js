@@ -334,17 +334,31 @@ Snacks: Prepped snacks for the week
 
   // Toggle accordion
   toggleAccordion(tab) {
+    const item = document.getElementById(`${tab}-accordion`);
     const content = document.getElementById(`${tab}-content`);
-    const allContent = document.querySelectorAll('.accordion-content');
-    const allArrows = document.querySelectorAll('.accordion-arrow');
-
-    // Close all
-    allContent.forEach(c => c.classList.remove('open'));
-    allArrows.forEach(a => a.classList.remove('rotated'));
-
-    // Open target
-    content.parentElement.classList.add('open');
-    content.previousElementSibling.querySelector('.accordion-arrow').classList.add('rotated');
+    const arrow = item ? item.querySelector('.accordion-arrow') : null;
+    
+    if (!item || !content) {
+      console.error('Accordion element not found:', tab);
+      return;
+    }
+    
+    // Check if currently open
+    const isOpen = item.classList.contains('open');
+    
+    // Close all accordion items
+    document.querySelectorAll('.accordion-item').forEach(el => {
+      el.classList.remove('open');
+    });
+    document.querySelectorAll('.accordion-arrow').forEach(el => {
+      el.classList.remove('rotated');
+    });
+    
+    // Open target (if it wasn't already open)
+    if (!isOpen) {
+      item.classList.add('open');
+      if (arrow) arrow.classList.add('rotated');
+    }
   },
 
   // Submit booking
