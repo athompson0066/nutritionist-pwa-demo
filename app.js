@@ -404,25 +404,33 @@ Snacks: Prepped snacks for the week
   },
 
   // Send to webhook (for regular chat)
+  // Demo chatbot — works without n8n
   async sendToWebhook(payload) {
     this.showTyping();
-    try {
-      const response = await fetch(this.config.webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      const data = await response.json();
-      this.hideTyping();
-      this.addBotMessage(data.reply || data.message || "Thanks for your message! Let me think about that...");
-    } catch (err) {
-      this.hideTyping();
-      if (!this.state.isOnline) {
-        this.queueOfflineMessage(payload);
-        this.addBotMessage("You're offline — I'll send your message when you're back online.");
-      } else {
-        this.addBotMessage("Hmm, something went wrong. Try again?");
-      }
+    const msg = (payload.message || '').toLowerCase();
+    
+    // Simulate delay
+    await new Promise(r => setTimeout(r, 800 + Math.random() * 700));
+    
+    let reply = "Thanks for reaching out! I'm Dr. Amara's assistant. Would you like to:\n\n• Get your **free 7-day meal plan** (type 'meal plan')\n• **Book a consultation** (type 'book')\n• Learn about **plant-based nutrition** (type 'nutrition')\n\nWhat would you like to explore?";
+    
+    if (msg.includes('meal plan') || msg.includes('meal plan')) {
+      reply = "🌱 **Your Free 7-Day Plant-Based Meal Plan**\n\nI'd love to help you get started! Click the **'Start Your Journey'** button above to get your personalized meal plan.\n\nIt only takes 2 minutes and you'll receive:\n• A full week of delicious plant-based meals\n• Snack ideas & prep tips\n• Grocery shopping list\n\nReady to transform your health?";
+    } else if (msg.includes('book') || msg.includes('consultation') || msg.includes('appointment')) {
+      reply = "📅 **Book a Consultation with Dr. Amara**\n\nDr. Amara offers 1-on-1 virtual consultations to help you:\n• Transition to a plant-based diet\n• Optimize athletic performance through nutrition\n• Manage specific health conditions\n\nTo book, simply fill out the form above or email: dr.amara@plantbasedperformance.com\n\n**First consultation: $97 (60 min)**";
+    } else if (msg.includes('nutrition') || msg.includes('plant-based') || msg.includes('vegan') || msg.includes('health')) {
+      reply = "🥗 **Plant-Based Performance Nutrition**\n\nDr. Amara specializes in evidence-based plant nutrition:\n\n• **Athletic Performance** — fuel your training optimally\n• **Weight Management** — sustainable, enjoyable approaches\n• **Disease Prevention** — whole food, plant-centric eating\n• **Energy & Vitality** — optimized micronutrients & macros\n\nWant a deep dive? Ask about our signature programs!";
+    } else if (msg.includes('protein') || msg.includes('b12') || msg.includes('supplement')) {
+      reply = "💪 **Common Protein & Supplement Questions**\n\nGreat question! On a plant-based diet:\n\n• **Protein:** Lentils, chickpeas, tofu, tempeh, seitan — all excellent sources!\n• **B12:** Essential supplement — 2500mcg weekly or 2500mcg daily\n• **Iron:** Pair with vitamin C foods for optimal absorption\n• **Omega-3:** Flaxseeds, walnuts, or algae supplements\n\nDr. Amara can create a personalized supplement & food plan for you!";
+    } else if (msg.includes('hello') || msg.includes('hi') || msg.includes('hey')) {
+      reply = "👋 Hey there! Welcome to Dr. Amara's plant-based nutrition practice!\n\nI'm her virtual assistant. I can help you:\n• Get a **free personalized meal plan**\n• **Book a consultation**\n• Learn about **plant-based eating**\n\nWhat interests you today?";
+    } else if (msg.includes('price') || msg.includes('cost') || msg.includes('fee')) {
+      reply = "💰 **Investment in Your Health**\n\n• **Free:** 7-day meal plan — no strings attached\n• **Consultations:** Starting at $97 for 60 minutes\n• **Programs:** Custom nutrition plans from $197\n\nMost clients see significant improvements in energy, weight, and performance within 4 weeks.\n\nReady to get started?";
+    }
+    
+    this.hideTyping();
+    this.addBotMessage(reply);
+  },
     }
   },
 
