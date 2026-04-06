@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#F5F1EB">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="description" content="Get your free personalized 7-day plant-based meal plan from Dr. Amara Osei, RD — Plant-Based Performance Nutrition">
+  <title>Dr. Amara Osei, RD — Plant-Based Performance Nutrition</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="avatar-wrapper">
+        <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=200&h=200&fit=crop&crop=face" alt="Dr. Amara Osei" class="avatar" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2240%22 fill=%22%2355A493%22/><text x=%2250%22 y=%2258%22 text-anchor=%22middle%22 font-size=%2240%22 fill=%22white%22>AO</text></svg>'">
+        <span class="avatar-badge">✓</span>
+      </div>
+      <div class="header-text">
+        <h1 class="header-name">Dr. Amara Osei, RD</h1>
+        <p class="header-tagline">Plant-Based Performance Nutrition</p>
+      </div>
+    </header>
+
+    <!-- Trust Signals -->
+    <div class="trust-signals">
+      <span class="trust-item">🌿 500+ Athletes Coached</span>
+      <span class="trust-item">📋 MSc Sports Nutrition</span>
+      <span class="trust-item">⭐ Featured in Men's Health</span>
+    </div>
+
+    <!-- Hero CTA Section -->
+    <section class="hero-section" id="hero-section">
+      <div class="hero-content">
+        <h2 class="hero-headline">Get Your Free 7-Day<br>Plant-Based Meal Plan</h2>
+        <p class="hero-subtext">Personalized to your goals, dietary needs & lifestyle — in under 60 seconds</p>
+        <button class="btn-primary" id="start-chat-btn" onclick="App.startMealPlan()">
+          <span class="btn-icon">🍽</span>
+          <span>Generate My Free Meal Plan</span>
+        </button>
+        <p class="hero-micro">No signup required · Instant results</p>
+      </div>
+    </section>
+
+    <!-- Accordion Tabs -->
+    <div class="accordion">
+      <!-- Chat Tab -->
+      <div class="accordion-item" id="chat-accordion">
+        <button class="accordion-header" onclick="App.toggleAccordion('chat')">
+          <span class="accordion-icon">💬</span>
+          <span class="accordion-label">Chat with Amara</span>
+          <span class="accordion-arrow">▼</span>
+        </button>
+        <div class="accordion-content" id="chat-content">
+          <div class="chat-container">
+            <div class="chat-messages" id="chat-messages">
+              <div class="chat-welcome">
+                <p>Hi there! I'm Dr. Amara 👋 Great to meet you.</p>
+                <p>Ask me anything about plant-based nutrition, sports performance, meal planning, or anything else on your mind. Or tap the button above to get your free personalized meal plan!</p>
+              </div>
+            </div>
+            <div class="chat-input-area">
+              <input type="text" class="chat-input" id="chat-input" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter')App.sendChat()">
+              <button class="btn-send" onclick="App.sendChat()">→</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Book Tab -->
+      <div class="accordion-item" id="book-accordion">
+        <button class="accordion-header" onclick="App.toggleAccordion('book')">
+          <span class="accordion-icon">📅</span>
+          <span class="accordion-label">Book a Consultation</span>
+          <span class="accordion-arrow">▼</span>
+        </button>
+        <div class="accordion-content" id="book-content">
+          <div class="booking-form">
+            <p class="booking-intro">Ready to transform your nutrition? Book a 1-on-1 consultation with me and let's build a plan that actually fits your life.</p>
+            <form id="consultation-form" onsubmit="App.submitBooking(event)">
+              <div class="form-group">
+                <label for="booking-name">Your Name</label>
+                <input type="text" id="booking-name" required placeholder="First and last name">
+              </div>
+              <div class="form-group">
+                <label for="booking-email">Email Address</label>
+                <input type="email" id="booking-email" required placeholder="you@example.com">
+              </div>
+              <div class="form-group">
+                <label for="booking-type">Consultation Type</label>
+                <select id="booking-type" required>
+                  <option value="">Select one...</option>
+                  <option value="initial">Initial Assessment (60 min) — $150</option>
+                  <option value="followup">Follow-up Session (30 min) — $85</option>
+                  <option value="package">3-Session Package — $235</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="booking-time">Preferred Day & Time</label>
+                <select id="booking-time" required>
+                  <option value="">Select a slot...</option>
+                  <option value="mon-10am">Monday — 10:00 AM EST</option>
+                  <option value="mon-2pm">Monday — 2:00 PM EST</option>
+                  <option value="wed-10am">Wednesday — 10:00 AM EST</option>
+                  <option value="wed-2pm">Wednesday — 2:00 PM EST</option>
+                  <option value="fri-10am">Friday — 10:00 AM EST</option>
+                  <option value="fri-11am">Friday — 11:00 AM EST</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="booking-message">Anything else I should know? (optional)</label>
+                <textarea id="booking-message" rows="3" placeholder="Your goals, any injuries, specific challenges..."></textarea>
+              </div>
+              <button type="submit" class="btn-primary btn-full" id="booking-submit">
+                <span>Request Consultation</span>
+              </button>
+            </form>
+            <div class="booking-success" id="booking-success" style="display:none">
+              <div class="success-icon">✓</div>
+              <h3>Request Received!</h3>
+              <p>I'll review your request and send you a confirmation within 24 hours with a Zoom link and preparation notes.</p>
+              <p class="success-detail" id="booking-summary"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>© 2026 Dr. Amara Osei, RD · Toronto, Canada</p>
+      <p class="footer-note">Statements not evaluated by FDA. Not intended to diagnose or treat any disease.</p>
+    </footer>
+  </div>
+
+  <!-- Meal Plan Modal -->
+  <div class="modal-overlay" id="meal-plan-modal" style="display:none">
+    <div class="modal">
+      <button class="modal-close" onclick="App.closeModal()">✕</button>
+      <div class="modal-header">
+        <span class="modal-emoji">🍽</span>
+        <h3>Your Personalized Meal Plan</h3>
+      </div>
+      <div class="chat-container modal-chat">
+        <div class="chat-messages" id="meal-plan-messages"></div>
+        <div class="chat-input-area">
+          <input type="email" class="chat-input" id="email-input" placeholder="Your email to get the full plan + recipes...">
+          <button class="btn-send" onclick="App.sendEmail()">→</button>
+        </div>
+        <p class="email-note">No spam. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Offline Toast -->
+  <div class="offline-toast" id="offline-toast" style="display:none">
+    <span>📴 You're offline — messages will send when connected</span>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
